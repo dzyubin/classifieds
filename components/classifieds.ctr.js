@@ -6,9 +6,22 @@
         .module("classifieds")
         .controller("classifiedsCtrl", function ($scope, $http, classifiedsFactory, $mdSidenav, $mdToast, $mdDialog) {
 
+            var vm = this;
+
+            vm.categories;
+            vm.classified;
+            vm.classifieds;
+            vm.closeSidebar = closeSidebar;
+            vm.deleteClassified = deleteClassified;
+            vm.editing;
+            vm.editClassified = editClassified;
+            vm.openSidebar = openSidebar;
+            vm.saveClassified = saveClassified;
+            vm.saveEdit = saveEdit;
+
             classifiedsFactory.getClassifieds().then(function (classifieds) {
-                $scope.classifieds = classifieds.data;
-                $scope.categories = getCategories($scope.classifieds);
+                vm.classifieds = classifieds.data;
+                vm.categories = getCategories(vm.classifieds);
             });
 
             var contact = {
@@ -17,38 +30,38 @@
                 email: 'sdfg@dfg.com'
             };
 
-            $scope.openSidebar = function () {
+            function openSidebar() {
                 $mdSidenav('left').open();
-            };
+            }
 
-            $scope.closeSidebar = function () {
+            function closeSidebar() {
                 $mdSidenav('left').close();
-            };
+            }
 
-            $scope.saveClassified = function (classified) {
+            function saveClassified(classified) {
                 if (classified) {
                     classified.contact = contact;
-                    $scope.classifieds.push(classified);
-                    $scope.classified = {};
-                    $scope.closeSidebar();
+                    vm.classifieds.push(classified);
+                    vm.classified = {};
+                    closeSidebar();
                     showToast("Товар Додано!");
                 }
-            };
+            }
 
-            $scope.editClassified = function (classified) {
-                $scope.editing = true;
-                $scope.openSidebar();
-                $scope.classified = classified;
-            };
+            function editClassified(classified) {
+                vm.editing = true;
+                openSidebar();
+                vm.classified = classified;
+            }
 
-            $scope.saveEdit = function () {
-                $scope.editing = false;
-                $scope.classified = {};
-                $scope.closeSidebar();
+            function saveEdit() {
+                vm.editing = false;
+                vm.classified = {};
+                closeSidebar();
                 showToast("Редагування збережено!");
-            };
+            }
 
-            $scope.deleteClassified = function (event, classified) {
+            function deleteClassified(event, classified) {
                 console.log(classified);
                 var confirm = $mdDialog.confirm()
                     .title('Ви справді хочете видалити ' + classified.title + '?')
@@ -58,11 +71,11 @@
 
                 $mdDialog.show(confirm).then(function () {
                     var index = $scope.classifieds.indexOf(classified);
-                    $scope.classifieds.splice(index, 1);
+                    vm.classifieds.splice(index, 1);
                 }, function () {
 
                 });
-            };
+            }
 
             function showToast(message) {
                 $mdToast.show(

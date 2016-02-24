@@ -1,0 +1,105 @@
+<nav class="navbar navbar-default">
+    <div class="navbar-header pull-left">
+        <h1 class="navbar-brand">Classifieds</h1>
+    </div>
+    <ul class="navbar navbar-nav">
+        <button type="button" class="btn btn-default navbar-btn" ng-click="vm.openSidebar()">
+            <span class="glyphicon glyphicon-plus-sign"></span>
+            Новий Товар
+        </button>
+        <button type="button" class="btn btn-default navbar-btn" ng-click="showFilters = true">
+            <span class="glyphicon glyphicon-search"></span>
+            Фільтр
+        </button>
+    </ul>
+</nav>
+
+<div class="filters well form-inline clearfix col-sm-10" ng-show="showFilters">
+
+    <div class="form-group">
+        <label for="search"></label>
+        <input type="text" class="form-control" id="search" ng-model="classifiedsFilter" autofocus placeholder="Введіть ключове слово"/>
+    </div>
+
+    <div class="form-group">
+        <label for="category">Категорія</label>
+        <select name="category" class="form-control" id="category" ng-model="category">
+            <option ng-repeat="category in vm.categories" value="{{ category }}">
+                {{ category }}
+            </option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-warning" ng-click="classifiedsFilter = ''; category = ''">Очистити</button>
+    </div>
+
+</div> <!--filters-->
+
+<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
+    <md-toolbar>
+        <h1 class="md-toolbar-tools">Додати Товар</h1>
+    </md-toolbar>
+
+    <md-content layout-padding>
+        <form>
+            <md-input-container>
+                <label for="title">Назва</label>
+                <input type="text" id="title" ng-model="classified.title" md-autofocus>
+            </md-input-container>
+            <md-input-container>
+                <label for="price">Ціна</label>
+                <input type="text" id="price" ng-model="classified.price"/>
+            </md-input-container>
+            <md-input-container>
+                <label for="description">Опис</label>
+                <textarea id="description" ng-model="classified.description"></textarea>
+            </md-input-container>
+            <md-input-container>
+                <label for="image">URL Зображення</label>
+                <input type="text" id="image" ng-model="classified.image"/>
+            </md-input-container>
+            <md-button ng-if="!editing" ng-click="vm.saveClassified(classified)" class="md-primary">Зберегти</md-button>
+            <md-button ng-if="editing" ng-click="vm.saveEdit()" class="md-primary">Зберегти Редагування</md-button>
+            <md-button ng-click="vm.closeSidebar()" class="md-warn">Скасувати</md-button>
+        </form>
+        <!--<pre>{{ classified | json }}</pre>-->
+    </md-content>
+</md-sidenav>
+
+<div class="container">
+    <div class="col-sm-4 classified" ng-repeat="classified in vm.classifieds |
+                                     filter: classifiedsFilter |
+                                     filter: category">
+        <div class="panel panel-default">
+
+            <img class="center-block" ng-src="{{ classified.image }}" alt=""/>
+            <h2 class="panel-heading text-center">{{ classified.title }}</h2>
+
+            <div class="well-lg">
+                <button class="btn btn-default" ng-click="showContact = true" ng-show="!showContact">Контактні Дані</button>
+                <button class="btn btn-default" ng-click="showContact = false" ng-show="showContact">Детально</button>
+                <button class="btn btn-default" ng-click="showAdmin = true" ng-show="!showAdmin">Адмін</button>
+                <button class="btn btn-default" ng-click="showAdmin = false" ng-show="showAdmin">Закрити</button>
+            </div>
+
+            <div class="classified-info" ng-show="!showContact">
+                <h3>{{ classified.price | currency }}</h3>
+                <p>{{ classified.description }}</p>
+            </div>
+
+            <div class="classified-contact" ng-show="showContact">
+                <p><span class="glyphicon glyphicon-user"> {{ classified.contact.name }}</span></p>
+                <p><span class="glyphicon glyphicon-phone"> {{ classified.contact.phone }}</span></p>
+                <p><span class="glyphicon glyphicon-envelope"> {{ classified.contact.email }}</span></p>
+            </div>
+
+            <div class="classified-admin" ng-if="showAdmin">
+                <hr>
+                <h3>Адмін</h3>
+                <button ng-click="vm.editClassified(classified)" class="btn btn-primary">Редагувати</button>
+                <button ng-click="vm.deleteClassified(event, classified)" class="btn btn-warning">Видалити</button>
+            </div>
+        </div>
+    </div>
+</div>
