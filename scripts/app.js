@@ -1,5 +1,5 @@
 angular
-    .module("classifieds", ["ngMaterial", "ui.router"])
+    .module("classifieds", ["ngMaterial", "ui.router", "firebase"])
     .config(function ($mdThemingProvider, $stateProvider) {
         $mdThemingProvider.theme('default')
             .primaryPalette('blue-grey')
@@ -15,5 +15,13 @@ angular
                 url: '/new',
                 templateUrl: 'components/classifieds/new/classifieds.new.tpl.html',
                 controller: 'newClassifiedsCtrl as vm'
+            })
+            .state('classifieds.edit', {
+                url: '/edit/:id',
+                templateUrl: 'components/classifieds/edit/classifieds.edit.tpl.html',
+                controller: 'editClassifiedsCtrl as vm',
+                params: {
+                    classified: null
+                }
             })
     });

@@ -19,9 +19,22 @@
             vm.saveClassified = saveClassified;
             vm.saveEdit = saveEdit;
 
-            classifiedsFactory.getClassifieds().then(function (classifieds) {
-                vm.classifieds = classifieds.data;
-                vm.categories = getCategories(vm.classifieds);
+            vm.classifieds = classifiedsFactory.ref;
+            vm.classifieds.$loaded().then(function (classifieds) {
+                vm.categories = getCategories(classifieds);
+            });
+            //classifiedsFactory.getClassifieds().then(function (classifieds) {
+            //    vm.classifieds = classifieds.data;
+            //    vm.categories = getCategories(vm.classifieds);
+            //});
+
+            $scope.$on('newClassified', function (event, classified) {
+                vm.classifieds.$add(classified);
+                showToast('Товар додано!');
+            });
+
+            $scope.$on('editSaved', function (event, message) {
+                showToast(message);
             });
 
             var contact = {
@@ -49,9 +62,9 @@
             }
 
             function editClassified(classified) {
-                vm.editing = true;
-                openSidebar();
-                vm.classified = classified;
+                $state.go('classifieds.edit', {
+                    id: classified.$id
+                });
             }
 
             function saveEdit() {
@@ -70,8 +83,8 @@
                     .targetEvent(event);
 
                 $mdDialog.show(confirm).then(function () {
-                    var index = $scope.classifieds.indexOf(classified);
-                    vm.classifieds.splice(index, 1);
+                    vm.classifieds.$remove(classified);
+                    showToast('Оголошення видалено!');
                 }, function () {
 
                 });
@@ -98,6 +111,5 @@
 
                 return _.uniq(categories);
             }
-
         })
 }());

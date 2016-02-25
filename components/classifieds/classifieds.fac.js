@@ -4,13 +4,12 @@
 
     angular
         .module("classifieds")
-        .factory("classifiedsFactory", function ($http) {
+        .factory("classifiedsFactory", function ($http, $firebaseArray) {
 
-            function getClassifieds() {
-                return $http.get('data/classifieds.json');
-            }
+            var ref = new Firebase('https://class1f1eds.firebaseio.com/');
+
             return {
-                getClassifieds: getClassifieds
+                ref: $firebaseArray(ref)
             }
         });
 }());
