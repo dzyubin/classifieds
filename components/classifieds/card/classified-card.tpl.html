@@ -1,0 +1,34 @@
+<div class="col-sm-4 classified" ng-repeat="classified in classifieds |
+                                     filter: classifiedsFilter |
+                                     filter: category">
+    <div class="panel panel-default">
+
+        <img class="center-block" width="100%" ng-src="{{ classified.image }}" alt=""/>
+        <h2 class="panel-heading text-center">{{ classified.title }}</h2>
+
+        <div class="well-lg">
+            <button class="btn btn-default" ng-click="showContact = true" ng-show="!showContact">Контактні Дані</button>
+            <button class="btn btn-default" ng-click="showContact = false" ng-show="showContact">Детально</button>
+            <button class="btn btn-default" ng-click="showAdmin = true" ng-show="!showAdmin">Адмін</button>
+            <button class="btn btn-default" ng-click="showAdmin = false" ng-show="showAdmin">Закрити</button>
+        </div>
+
+        <div class="classified-info" ng-show="!showContact">
+            <h3>{{ classified.price | currency }}</h3>
+            <p>{{ classified.description }}</p>
+        </div>
+
+        <div class="classified-contact" ng-show="showContact">
+            <p><span class="glyphicon glyphicon-user"> {{ classified.contact.name }}</span></p>
+            <p><span class="glyphicon glyphicon-phone"> {{ classified.contact.phone }}</span></p>
+            <p><span class="glyphicon glyphicon-envelope"> {{ classified.contact.email }}</span></p>
+        </div>
+
+        <div class="classified-admin" ng-if="showAdmin">
+            <hr>
+            <h3>Адмін</h3>
+            <button ng-click="vm.editClassified(classified)" class="btn btn-primary">Редагувати</button>
+            <button ng-click="vm.deleteClassified(event, classified)" class="btn btn-warning">Видалити</button>
+        </div>
+    </div>
+</div>

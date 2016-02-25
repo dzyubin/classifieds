@@ -23,10 +23,6 @@
             vm.classifieds.$loaded().then(function (classifieds) {
                 vm.categories = getCategories(classifieds);
             });
-            //classifiedsFactory.getClassifieds().then(function (classifieds) {
-            //    vm.classifieds = classifieds.data;
-            //    vm.categories = getCategories(vm.classifieds);
-            //});
 
             $scope.$on('newClassified', function (event, classified) {
                 vm.classifieds.$add(classified);
@@ -75,7 +71,6 @@
             }
 
             function deleteClassified(event, classified) {
-                console.log(classified);
                 var confirm = $mdDialog.confirm()
                     .title('Ви справді хочете видалити ' + classified.title + '?')
                     .ok('Так')

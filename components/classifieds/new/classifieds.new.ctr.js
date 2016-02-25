@@ -8,7 +8,7 @@
 
             var vm = this;
             vm.closeSidebar = closeSidebar;
-            vm.saveClassified = saveClassifeid;
+            vm.saveClassified = saveClassified;
             $timeout(function () {
                 $mdSidenav('left').open();
             });
@@ -27,7 +27,7 @@
                 vm.sidenavOpen = false;
             }
 
-            function saveClassifeid(classified) {
+            function saveClassified(classified) {
                 if (classified) {
                     classified.contact = {
                         name: "Ryan",
