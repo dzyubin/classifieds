@@ -1,28 +1,33 @@
-<div class="col-sm-4 classified" ng-repeat="classified in classifieds |
+<div class="classified" ng-repeat="classified in classifieds |
                                      filter: classifiedsFilter |
                                      filter: category">
     <div class="panel panel-default">
 
-        <img class="center-block img-responsive" ng-src="{{ classified.image }}" alt=""/>
-        <h2 class="panel-heading text-center">{{ classified.title }}</h2>
-
-        <div class="well-lg">
-            <button class="btn btn-default" ng-click="showContact = true" ng-show="!showContact">Контактні Дані</button>
-            <button class="btn btn-default" ng-click="showContact = false" ng-show="showContact">Детально</button>
-            <button class="btn btn-default" ng-click="showAdmin = true" ng-show="!showAdmin">Адмін</button>
-            <button class="btn btn-default" ng-click="showAdmin = false" ng-show="showAdmin">Закрити</button>
+        <div class="row">
+            <img class="pull-left img-responsive" ng-src="{{ classified.image }}" alt=""/>
+            <h2 class="layout-align-center text-center">{{ classified.title }}</h2>
+            <h3><span class="label label-info pull-right">{{ classified.price | currency }}</span></h3>
         </div>
 
-        <div class="classified-info" ng-show="!showContact">
-            <h3>{{ classified.price | currency }}</h3>
-            <p>{{ classified.description }}</p>
+        <div class="row">
+            <div class="well-lg col-sm-3">
+                <button class="btn btn-default" ng-click="showContact = true" ng-show="!showContact">Контактні Дані</button>
+                <button class="btn btn-default" ng-click="showContact = false" ng-show="showContact">Детально</button>
+                <button class="btn btn-default" ng-click="showAdmin = true" ng-show="!showAdmin">Адмін</button>
+                <button class="btn btn-default" ng-click="showAdmin = false" ng-show="showAdmin">Закрити</button>
+            </div>
+
+            <div class="classified-info col-sm-9" ng-show="!showContact">
+                <p>{{ classified.description }}</p>
+            </div>
+
+            <div class="classified-contact col-sm-3" ng-show="showContact">
+                <p><span class="glyphicon glyphicon-user"> {{ classified.contact.name }}</span></p>
+                <p><span class="glyphicon glyphicon-phone"> {{ classified.contact.phone }}</span></p>
+                <p><span class="glyphicon glyphicon-envelope"> {{ classified.contact.email }}</span></p>
+            </div>
         </div>
 
-        <div class="classified-contact" ng-show="showContact">
-            <p><span class="glyphicon glyphicon-user"> {{ classified.contact.name }}</span></p>
-            <p><span class="glyphicon glyphicon-phone"> {{ classified.contact.phone }}</span></p>
-            <p><span class="glyphicon glyphicon-envelope"> {{ classified.contact.email }}</span></p>
-        </div>
 
         <div class="classified-admin" ng-if="showAdmin">
             <hr>

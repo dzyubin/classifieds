@@ -21,6 +21,10 @@
                 <label for="image">URL Зображення</label>
                 <input type="text" id="image" ng-model="classified.image"/>
             </md-input-container>
+            <md-input-container>
+                <label for="category">Категорія</label>
+                <input type="text" id="category" ng-model="classified.category"/>
+            </md-input-container>
             <md-button ng-if="!editing" ng-click="vm.saveClassified(classified)" class="md-primary">Зберегти</md-button>
             <md-button ng-if="editing" ng-click="vm.saveEdit()" class="md-primary">Зберегти Редагування</md-button>
             <md-button ng-click="vm.closeSidebar()" class="md-warn">Скасувати</md-button>

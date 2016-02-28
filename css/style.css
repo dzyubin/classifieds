@@ -37,3 +37,15 @@ ul.navbar {
     from { opacity: 1; }
     to { opacity: 0; }
 }
+
+classified-card img {
+    margin: 0 5px 15px 15px;
+}
+
+classified-card button {
+    margin: 5px;
+}
+
+classified-card h2 {
+    margin-left: 25px;
+}
