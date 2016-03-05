@@ -13,6 +13,16 @@ angular
                 templateUrl: 'components/classifieds/classifieds.tpl.html',
                 controller: 'classifiedsCtrl as vm'
             })
+            .state('classifieds.login', {
+                url: '/login',
+                templateUrl: 'components/classifieds/login/classifieds.login.tpl.html',
+                controller: 'loginClassifiedsCtrl as vm'
+            })
+            .state('classifieds.register', {
+                url: '/register',
+                templateUrl: 'components/classifieds/register/classifieds.register.tpl.html',
+                controller: 'registerClassifiedsCtrl as vm'
+            })
             .state('classifieds', {
                 url: '/classifieds',
                 templateUrl: 'components/classifieds/classifieds.tpl.html',
