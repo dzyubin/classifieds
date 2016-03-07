@@ -4,7 +4,7 @@
 
     angular
         .module("classifieds")
-        .controller("classifiedsCtrl", function ($scope, $state, $http, classifiedsFactory, $mdSidenav, $mdToast, $mdDialog) {
+        .controller("classifiedsCtrl", function ($rootScope, $scope, $state, $http, classifiedsFactory, $mdSidenav, $mdToast, $mdDialog) {
 
             var vm = this;
 
@@ -14,7 +14,7 @@
             vm.closeSidebar = closeSidebar;
             vm.deleteClassified = deleteClassified;
             vm.editing;
-            vm.editClassified = editClassified;
+            //vm.editClassified = editClassified; // moved to classified-card.dir.js
             vm.openSidebar = openSidebar;
             vm.saveClassified = saveClassified;
             vm.saveEdit = saveEdit;
@@ -40,7 +40,11 @@
             };
 
             function openSidebar() {
-                $state.go('classifieds.new');
+                if ($rootScope.currentUser) {
+                    $state.go('classifieds.new');
+                } else {
+                    showToast("Необхідна авторизація (натисніть 'Вхід')");
+                }
             }
 
             function closeSidebar() {
@@ -57,11 +61,13 @@
                 }
             }
 
+/*          // moved to classified-card.dir.js
             function editClassified(classified) {
                 $state.go('classifieds.edit', {
                     id: classified.$id
                 });
             }
+*/
 
             function saveEdit() {
                 vm.editing = false;

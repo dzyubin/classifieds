@@ -11,10 +11,12 @@
             <span class="glyphicon glyphicon-search"></span>
             Фільтр
         </button>
-    <a href="#/classifieds/register" class="btn btn-default navbar-btn">Реєстрація</a>
-    <a href="#/classifieds/login" class="btn btn-default navbar-btn">
-        <span class="glyphicon glyphicon-log-in"></span>
-        Увійти</a>
+        <a ng-hide="currentUser" ng-href="#/classifieds/register" class="btn btn-default navbar-btn">Реєстрація</a>
+        <a ng-hide="currentUser" ng-href="#/classifieds/login" class="btn btn-default navbar-btn">
+            <span class="glyphicon glyphicon-log-in"></span>
+            Вхід
+        </a>
+
     </ul>
 </nav>
 
@@ -43,6 +45,10 @@
 <ui-view></ui-view>
 
 <div class="container">
+    <div ng-controller="loginClassifiedsCtrl">
+        <a ng-href="#/classifieds/login" class="btn btn-default navbar-btn" ng-click="logout()">Вийти</a>
+        <span ng-show="currentUser">Hi {{ currentUser.firstname }}</span>
+    </div>
     <classified-card classifieds="vm.classifieds"
                      classifieds-filter="classifiedsFilter"
                      category="category">

@@ -1,5 +1,8 @@
 angular
     .module("classifieds", ["ngMaterial", "ui.router", "firebase"])
+
+    .constant('FIREBASE_URL', 'https://class1f1eds.firebaseio.com/')
+
     .config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider) {
         $mdThemingProvider.theme('default')
             .primaryPalette('blue-grey')
