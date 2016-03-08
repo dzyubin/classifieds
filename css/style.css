@@ -57,3 +57,7 @@ input.ng-invalid.ng-touched {
 input.ng-valid.ng-touched {
     border: 1px solid #509D12;
 }
+
+.md-sidenav-backdrop.md-opaque, md-sidenav {
+    position: fixed;
+}
