@@ -1,23 +1,58 @@
-<nav class="navbar navbar-default">
-    <div class="navbar-header pull-left">
-        <h1 class="navbar-brand">Оголошення</h1>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                data-target="#nav-toggle">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Оголошення</a>
     </div>
-    <ul class="navbar navbar-nav">
-        <button type="button" class="btn btn-default navbar-btn" ng-click="vm.openSidebar()">
-            <span class="glyphicon glyphicon-plus-sign"></span>
-            Новий Товар
-        </button>
-        <button type="button" class="btn btn-default navbar-btn" ng-click="showFilters = true">
-            <span class="glyphicon glyphicon-search"></span>
-            Фільтр
-        </button>
-        <a ng-hide="currentUser" ng-href="#/classifieds/register" class="btn btn-default navbar-btn">Реєстрація</a>
-        <a ng-hide="currentUser" ng-href="#/classifieds/login" class="btn btn-default navbar-btn">
-            <span class="glyphicon glyphicon-log-in"></span>
-            Вхід
-        </a>
 
-    </ul>
+    <div class="collapse navbar-collapse" id="nav-toggle">
+        <ul class="nav navbar-nav">
+            <li>
+                <a ng-href="#" ng-click="vm.openSidebar()">
+                    <span class="glyphicon glyphicon-plus-sign"></span>
+                    Новий Товар
+                </a>
+            </li>
+            <li>
+                <a ng-href="#" ng-click="showFilters = true">
+                    <span class="glyphicon glyphicon-search"></span>
+                    Фільтр
+                </a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a ng-hide="currentUser" ng-href="#/classifieds/register">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    Реєстрація
+                </a>
+            </li>
+            <li>
+                <a ng-hide="currentUser" ng-href="#/classifieds/login">
+                    <span class="glyphicon glyphicon-log-in"></span>
+                    Вхід
+                </a>
+            </li>
+            <li>
+                <a ng-show="currentUser" ng-href="#">
+                    <span class="glyphicon glyphicon-user"></span>
+                    {{ currentUser.firstname }}
+                </a>
+            </li>
+            <li ng-controller="loginClassifiedsCtrl">
+                <a ng-show="currentUser" ng-href="#/classifieds/login" ng-click="logout()">
+                    <span class="glyphicon glyphicon-log-out"></span>
+                    Вийти
+                </a>
+                <!--<span ng-show="currentUser">Hi {{ currentUser.firstname }}</span>-->
+            </li>
+        </ul>
+
+    </div>
 </nav>
 
 <div class="filters well form-inline clearfix" ng-show="showFilters">
@@ -45,10 +80,6 @@
 <ui-view></ui-view>
 
 <div class="container">
-    <div ng-controller="loginClassifiedsCtrl">
-        <a ng-href="#/classifieds/login" class="btn btn-default navbar-btn" ng-click="logout()">Вийти</a>
-        <span ng-show="currentUser">Hi {{ currentUser.firstname }}</span>
-    </div>
     <classified-card classifieds="vm.classifieds"
                      classifieds-filter="classifiedsFilter"
                      category="category">
